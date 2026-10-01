@@ -57,12 +57,11 @@ func (s *server) withLogging(next http.Handler) http.Handler {
 
 // ── отдача интерфейса ──────────────────────────────────────────────────────
 
-func (s *server) serveAsset(w http.ResponseWriter, r *http.Request, name, ctype string) {
+// serveAsset отдаёт вшитый в бинарник ресурс интерфейса.
+func (s *server) serveAsset(w http.ResponseWriter, body, ctype string) {
 	w.Header().Set("Content-Type", ctype)
 	w.Header().Set("Cache-Control", "no-cache")
-	if _, err := io.WriteString(w, name); err != nil {
-		return
-	}
+	_, _ = io.WriteString(w, body)
 }
 
 func (s *server) handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -76,10 +75,10 @@ func (s *server) handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) handleJS(w http.ResponseWriter, r *http.Request) {
-	s.serveAsset(w, r, appJS, "application/javascript; charset=utf-8")
+	s.serveAsset(w, appJS, "application/javascript; charset=utf-8")
 }
 func (s *server) handleCSS(w http.ResponseWriter, r *http.Request) {
-	s.serveAsset(w, r, appCSS, "text/css; charset=utf-8")
+	s.serveAsset(w, appCSS, "text/css; charset=utf-8")
 }
 
 // ── JSON-ответы ────────────────────────────────────────────────────────────
