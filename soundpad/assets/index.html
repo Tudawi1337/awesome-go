@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soundpad — звуковая панель</title>
+<link rel="stylesheet" href="/app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔊</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🔊</span>
+    <div class="brand-text">
+      <h1>Soundpad</h1>
+      <p id="subtitle">звуковая панель</p>
+    </div>
+  </div>
+
+  <div class="transport">
+    <button id="btn-stop" class="btn btn-danger" title="Пробел">Стоп всё</button>
+  </div>
+
+  <label class="slider" for="vol">
+    <span>Громкость <output id="vol-out">100%</output></span>
+    <input id="vol" type="range" min="0" max="300" step="5" value="100">
+  </label>
+
+  <label class="slider" for="padvol" title="Через сколько секунд глушить длинные звуки">
+    <span>Длина пэда <output id="padvol-out">3.0 с</output></span>
+    <input id="padvol" type="range" min="0" max="8" step="0.5" value="3">
+  </label>
+
+  <div class="hint" id="mode-badge" title="Как воспроизводится звук">…</div>
+</header>
+
+<nav class="pages" id="pages" aria-label="Страницы пэдов"></nav>
+
+<main>
+  <div class="grid" id="grid" aria-label="Пэды"></div>
+</main>
+
+<footer class="statusbar">
+  <span id="status">загрузка…</span>
+  <span class="spacer"></span>
+  <span id="lib-path" class="mono"></span>
+</footer>
+
+<div class="context-menu" id="menu" hidden></div>
+<input type="file" id="file-input" accept=".wav,.mp3,.ogg,.oga,.flac,.m4a,.aac,.opus,audio/*" multiple hidden>
+<div class="toasts" id="toasts"></div>
+<div class="modal" id="modal" hidden>
+  <div class="modal-box">
+    <h2 id="modal-title">Правка</h2>
+    <label class="field"><span id="modal-label">Значение</span>
+      <input id="modal-input" type="text" autocomplete="off">
+    </label>
+    <div class="modal-actions">
+      <button class="btn" id="modal-cancel">Отмена</button>
+      <button class="btn btn-primary" id="modal-ok">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
